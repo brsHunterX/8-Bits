@@ -29,4 +29,17 @@ export default class Scale {
     
     return new Scale(0, 0);
   }
+  
+  /**
+   *
+   *
+   * @readonly
+   * @static
+   * @type {Scale}
+   * @memberof Scale
+   */
+  public static get one(): Scale {
+    
+    return new Scale(1, 1);
+  }
 }

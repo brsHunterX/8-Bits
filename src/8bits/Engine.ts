@@ -25,7 +25,7 @@ export default class Engine {
    */
   constructor() {
 
-    Canvas.draw();
+    Canvas.mount();
     
     window.requestAnimationFrame(() => this.update());
   }
@@ -67,6 +67,7 @@ export default class Engine {
   private render(): void {
     
     Canvas.clean();
+    Canvas.antialiasing(false);
     
     this.renderGameObjects();
   }
@@ -82,8 +83,8 @@ export default class Engine {
     Time.computeDeltaTime();
     Time.computeFramePerSecond();
     
-    this.render();
-    this.updateGameObjects();
+    // this.render();
+    // this.updateGameObjects();
 
     window.requestAnimationFrame(() => this.update());
   }

@@ -1,5 +1,6 @@
 import Scale from './Scale';
 import Vector from './Vector';
+import Texture from './Texture';
 
 /**
  *
@@ -8,7 +9,7 @@ import Vector from './Vector';
  * @class Canvas
  */
 export default class Canvas {
-  
+
   /**
    *
    *
@@ -59,6 +60,17 @@ export default class Canvas {
   /**
    *
    *
+   * @param {boolean} active
+   * @memberof Canvas
+   */
+  public static antialiasing(active: boolean = true) {
+
+    this.context.imageSmoothingEnabled = active;
+  }
+
+  /**
+   *
+   *
    * @static
    * @memberof Canvas
    */
@@ -73,12 +85,10 @@ export default class Canvas {
    * @static
    * @memberof Canvas
    */
-  public static draw(): void {
+  public static mount(): void {
 
     this.target = document.getElementById('game') as HTMLElement;
-    
     this.canvas = document.createElement('canvas') as HTMLCanvasElement;
-
     this.context = this.canvas.getContext('2d') as CanvasRenderingContext2D;
 
     this.canvas.width = this.canvasWidth;
@@ -99,14 +109,33 @@ export default class Canvas {
    * @param {string} [color='#000000']
    * @memberof Canvas
    */
-  public static drawRect(position: Vector, scale: Scale, color: string = '#000000'): void  {
+  public static drawRect(position: Vector = Vector.zero, scale: Scale = Scale.one, color: string = '#000000'): void {
 
     Canvas.context.fillStyle = color;
-    
     Canvas.context.beginPath();
-
     Canvas.context.fillRect(position.x, position.y, scale.width, scale.height);
-
     Canvas.context.closePath();
+  }
+
+  /**
+   *
+   *
+   * @static
+   * @param {Texture} texture
+   * @param {Vector} position
+   * @param {Scale} scale
+   * @memberof Canvas
+   */
+  public static drawImage(texture: Texture, position: Vector = Vector.zero, scale: Scale = Scale.one): void {
+
+    console.log(texture);
+    console.log(position);
+    console.log(scale);
+
+    Canvas.context.drawImage(
+      texture.image,
+      position.x, position.y, scale.width, scale.height,
+      position.x, position.y, scale.width, scale.height,
+    );
   }
 }
